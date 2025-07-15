@@ -496,10 +496,9 @@ class Synthesizer(nn.Module):
             if not use_gl:
                 waveform = waveform.numpy()
             wavs = waveform.squeeze()
-
         # compute stats
         process_time = time.time() - start_time
         audio_time = len(wavs) / self.tts_config.audio["sample_rate"]
         print(f" > Processing time: {process_time}")
         print(f" > Real-time factor: {process_time / audio_time}")
-        return wavs
+        return wavs, outputs['outputs']['durations'].cpu().numpy().squeeze()
